@@ -8,8 +8,11 @@ body{
   }
 
  td {
-    border: 1px solid black;
-    padding-left: 25px;
+    padding-left: 4vh;
+    padding-right: 4vh;
+    font-size: 10vh;
+    text-align: center;
+    vertical-align: middle;
 }
 
 table {
@@ -17,5 +20,36 @@ table {
  width: 200px;
 }
 
+#\30{
+    border-bottom: 3px solid black;
+    border-right: 3px solid black;
+}
+#\31{
+    border-bottom: 3px solid black;
+    border-right: 3px solid black;
+}
+#\32{
+    border-bottom: 3px solid black;
+    
+}
+#\33{
+    border-bottom: 3px solid black;
+    border-right: 3px solid black;
+}
+#\34{
+    border-bottom: 3px solid black;
+    border-right: 3px solid black;
+}
+#\35{
+    border-bottom: 3px solid black;  
+}
+#\36{
+    border-right: 3px solid black;  
+}
+#\37{
+    border-right: 3px solid black;  
+}
 
-
+table {
+    border-collapse: collapse;
+}
