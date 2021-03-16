@@ -29,8 +29,7 @@ table {
     border-right: 3px solid black;
 }
 #\32{
-    border-bottom: 3px solid black;
-    
+    border-bottom: 3px solid black;  
 }
 #\33{
     border-bottom: 3px solid black;
@@ -49,7 +48,6 @@ table {
 #\37{
     border-right: 3px solid black;  
 }
-
 table {
     border-collapse: collapse;
 }
