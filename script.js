@@ -1,12 +1,17 @@
 const model = {
  // holds current baord state
   gameArrayFunction: (function() {
-    const gameArray =["X","O","X","X","X","O","X","O","X"];
+    const gameArray =["0","O","X","X","X","O","X","O","X"];
     return{
       gameArray
     }
   })()
 } // end model object
+
+
+
+
+
 
 const controller = {
   //factory function to create players
@@ -16,9 +21,16 @@ const controller = {
     return {
      playerOne, playerTwo
   };
-  })(), // end player factory function
-alert: function(){alert("this is player one:" + this.players.playerOne)}
+  })() // end player factory function
+
+  //
+
 }; // end controller object
+
+
+
+
+
 
 const view = {
   // populate the board with currently positioned Xs and Os
@@ -31,9 +43,12 @@ const view = {
 
   //dipslay the player names on the board
   displayPlayerNames:(function(){
-  let displayPlayerOne = document.getElementById("playerOne").innerText = controller.players.playerOne;
-  let displayPlayerTwo = document.getElementById("playerTwo").innerText = controller.players.playerTwo;
-
+  let displayPlayerOne = document.getElementById("playerOne").innerText = "Player 1: " + controller.players.playerOne;
+  let displayPlayerTwo = document.getElementById("playerTwo").innerText = "Player 2: " + controller.players.playerTwo;
 })()
 } // end view object
 
+// next, push this into the array.
+//also, figure out how to make sure any ID gets pushed
+// and put it in anevent listener
+let banana = document.getElementById("0").innerText = ("hi");
