@@ -9,23 +9,21 @@ const model = {
   })(),
 
   // applying the game logic
-  gameLogic: (function(){
+  gameLogic: function(){
   let winner = "none";
   const logicVar = model.gameArrayFunction.gameArray;
 
-  if (logicVar[0]=== "x" && logicVar[1] === "x" && logicVar[2] === "x"){
-    //alert ("player one wins");
+  if (logicVar[0]=== "x" && logicVar[1] === "x" && logicVar[2] === "x" || logicVar[3]=== "x" && logicVar[4] === "x" && logicVar[5] === "x" || logicVar[6]=== "x" && logicVar[7] === "x" && logicVar[8] === "x" || logicVar[0]=== "x" && logicVar[4] === "x" && logicVar[8] === "x" || logicVar[2]=== "x" && logicVar[4] === "x" && logicVar[6] === "x"){
     winner = controller.players.playerOne;
-    
-    console.log("winner from within game logic function:" + winner);
+  } else if (logicVar[0]=== "o" && logicVar[1] === "o" && logicVar[2] === "o" || logicVar[3]=== "o" && logicVar[4] === "o" && logicVar[5] === "o" || logicVar[6]=== "o" && logicVar[7] === "o" && logicVar[8] === "o" || logicVar[0]=== "o" && logicVar[4] === "o" && logicVar[8] === "o" || logicVar[2]=== "o" && logicVar[4] === "o" && logicVar[6] === "o"){
+    winner = controller.players.playerTwo;
   }
-  
  return {winner}
- // access with "model.gameLogic().winner"
-  })
-  
 
+  },// end game Logic
 } // end model object
+
+
 
 const controller = {
   //factory function to create players
@@ -37,9 +35,6 @@ const controller = {
   };
   })(), // end player factory function
 
-
-  
- 
   getEntry: (function(){
     //get input from player and send to model array
     const cells = document.getElementsByTagName("td");
@@ -59,6 +54,10 @@ const controller = {
         model.gameArrayFunction.gameArray.splice(cellID, 1,cellContent);
         view.displayBoard();
         model.gameLogic();
+        
+        if (model.gameLogic().winner !=="none"){
+        view.displayWinner(model.gameLogic().winner);
+        }
       } else {
       //  console.log("pure shite input");
         cellContent = ' ';
@@ -70,9 +69,14 @@ const controller = {
       }); // end event listener
     } // end for 
   })() //end get entry function
+
+
+
+
 } // end controller
 
 const view = {
+  
   // populate the board with currently positioned Xs and Os
   displayBoard: (function(){
   for (i=0; i<=8;i++){
@@ -87,18 +91,14 @@ const view = {
   let displayPlayerTwo = document.getElementById("playerTwo").innerText = "Player 2 (o): " + controller.players.playerTwo;
   })(),
 
-  //display winner message
   displayWinner: (function(winner){
-    const champ = winner;
-    alert(champ);
-   // console.log(model.gameLogic().winner);
-   // alert(model.gameLogic().winner);
+  alert("And the winner is " + winner);
   })
  
 
-
-
-
 } // end view object
+
+
+
 
 
