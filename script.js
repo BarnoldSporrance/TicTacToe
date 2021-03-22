@@ -1,6 +1,6 @@
 const model = {
 
- // holds current board state
+ // holds current board state  -IIFE in order to keep Tds from reading"undefined" as default
   gameArrayFunction: (function() {
     const gameArray =[" "," "," "," "," "," "," "," "," "];
     return{
@@ -19,10 +19,8 @@ const model = {
     winner = controller.players.playerTwo;
   }
  return {winner}
-
   },// end game Logic
 } // end model object
-
 
 
 const controller = {
@@ -40,13 +38,11 @@ const controller = {
     const cells = document.getElementsByTagName("td");
     for (var i=0; i<=8; i++){
       cells[i].addEventListener('focusout', function(event) {
-     
       let cellID = event.target.id;
       let cellContent = this.innerText;
       
      // function to check that entry is either an X or O
      const checkInput = (function(){
-    
       if (cellContent === "x"|| cellContent === "X" || cellContent === "o" || cellContent === "O") {
        // console.log("valid input");
         cellContent = cellContent.toLowerCase();
@@ -69,14 +65,9 @@ const controller = {
       }); // end event listener
     } // end for 
   })() //end get entry function
-
-
-
-
 } // end controller
 
 const view = {
-  
   // populate the board with currently positioned Xs and Os
   displayBoard: (function(){
   for (i=0; i<=8;i++){
@@ -94,8 +85,6 @@ const view = {
   displayWinner: (function(winner){
   alert("And the winner is " + winner);
   })
- 
-
 } // end view object
 
 
