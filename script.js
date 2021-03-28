@@ -1,5 +1,4 @@
 const model = {
-
  // holds current board state  -IIFE in order to keep Tds from reading"undefined" as default
   gameArrayFunction: (function() {
     const gameArray =[" "," "," "," "," "," "," "," "," "];
@@ -13,21 +12,25 @@ const model = {
   let winner = "none";
   const logicVar = model.gameArrayFunction.gameArray;
 
-  if (logicVar[0]=== "x" && logicVar[1] === "x" && logicVar[2] === "x" || logicVar[3]=== "x" && logicVar[4] === "x" && logicVar[5] === "x" || logicVar[6]=== "x" && logicVar[7] === "x" && logicVar[8] === "x" || logicVar[0]=== "x" && logicVar[4] === "x" && logicVar[8] === "x" || logicVar[2]=== "x" && logicVar[4] === "x" && logicVar[6] === "x"){
+  if (logicVar[0]=== "x" && logicVar[1] === "x" && logicVar[2] === "x" || logicVar[3]=== "x" && logicVar[4] === "x" && logicVar[5] === "x" || logicVar[6]=== "x" && logicVar[7] === "x" && logicVar[8] === "x" || logicVar[0]=== "x" && logicVar[4] === "x" && logicVar[8] === "x" || logicVar[2]=== "x" && logicVar[4] === "x" && logicVar[6] === "x" || logicVar[0]=== "x" && logicVar[3] === "x" && logicVar[6] === "x"|| logicVar[1]=== "x" && logicVar[4] === "x" && logicVar[7] === "x" || logicVar[2]=== "x" && logicVar[5] === "x" && logicVar[8] === "x"){
     winner = controller.players.playerOne;
-  } else if (logicVar[0]=== "o" && logicVar[1] === "o" && logicVar[2] === "o" || logicVar[3]=== "o" && logicVar[4] === "o" && logicVar[5] === "o" || logicVar[6]=== "o" && logicVar[7] === "o" && logicVar[8] === "o" || logicVar[0]=== "o" && logicVar[4] === "o" && logicVar[8] === "o" || logicVar[2]=== "o" && logicVar[4] === "o" && logicVar[6] === "o"){
+  } else if (logicVar[0]=== "o" && logicVar[1] === "o" && logicVar[2] === "o" || logicVar[3]=== "o" && logicVar[4] === "o" && logicVar[5] === "o" || logicVar[6]=== "o" && logicVar[7] === "o" && logicVar[8] === "o" || logicVar[0]=== "o" && logicVar[4] === "o" && logicVar[8] === "o" || logicVar[2]=== "o" && logicVar[4] === "o" && logicVar[6] === "o" || logicVar[0]=== "x" && logicVar[3] === "x" && logicVar[6] === "x"|| logicVar[1]=== "x" && logicVar[4] === "x" && logicVar[7] === "x" || logicVar[2]=== "x" && logicVar[5] === "x" && logicVar[8] === "x"){
     winner = controller.players.playerTwo;
   }
  return {winner}
-  },// end game Logic
+  },// end game logic
 } // end model object
 
 
 const controller = {
+
   //factory function to create players
-  players: (function() {
-    const playerOne = prompt("Enter the name for player one (you're 'X')");
-    const playerTwo = prompt("Enter the name for player two(you're 'O')");
+  players: (function(){
+    
+    const playerOne = prompt("Player one's name?");
+
+    const playerTwo = prompt("Player two's name?");
+    
     return {
      playerOne, playerTwo
   };
@@ -43,7 +46,7 @@ const controller = {
       
      // function to check that entry is either an X or O
      const checkInput = (function(){
-      if (cellContent === "x"|| cellContent === "X" || cellContent === "o" || cellContent === "O") {
+      if (cellContent === "x"|| cellContent === "X" || cellContent === "o" || cellContent === "O" || cellContent === " " || cellContent ==="") {
        // console.log("valid input");
         cellContent = cellContent.toLowerCase();
         // send valid inout to model
@@ -68,6 +71,7 @@ const controller = {
 } // end controller
 
 const view = {
+
   // populate the board with currently positioned Xs and Os
   displayBoard: (function(){
   for (i=0; i<=8;i++){
@@ -78,16 +82,16 @@ const view = {
 
   //dipslay the player names on the board
   displayPlayerNames:(function(){
-  let displayPlayerOne = document.getElementById("playerOne").innerText = "Player 1 (x): " + controller.players.playerOne;
-  let displayPlayerTwo = document.getElementById("playerTwo").innerText = "Player 2 (o): " + controller.players.playerTwo;
-  })(),
+  const displayPlayerOne = document.getElementById("playerOne");
+  displayPlayerOne.innerText = "Player 1(x): " + controller.players.playerOne;
+
+  const displayPlayerTwo = document.getElementById("playerTwo");
+  displayPlayerTwo.innerText = "Player 2(o): " + controller.players.playerTwo;
+  }),
 
   displayWinner: (function(winner){
   alert("And the winner is " + winner);
   })
 } // end view object
 
-
-
-
-
+view.displayPlayerNames();

@@ -8,8 +8,6 @@ body{
     align-items: center;
   }
 
-
-
 .playersDisplay{
     padding:10px;
 }
@@ -75,7 +73,8 @@ table {
     background-color: #43444D;
     border-width: 1px;
     height: 100px;
-    width: 30%;
+    width: 25vh;
+  
     margin: 30px;
     padding: 10px;
     border-radius: 20px;
@@ -83,6 +82,30 @@ table {
     padding-top: 10px;
     margin-bottom: 10vh;
     margin-right: 50vh;
+    box-shadow:
+      0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+      0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+      0 12.5px 10px rgba(0, 0, 0, 0.06),
+      0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+      0 44.8px 33.4px rgba(0, 0, 0, 0.086),
+      0 100px 80px rgba(0, 0, 0, 0.12)
+    ;
+  }
+
+  .form {
+    font-family: 'Roboto', sans-serif; 
+    color: #ebebeb;
+    border-style: solid;
+    border-color: #43444D;
+    background-color: #43444D;
+    height: 80px;
+    min-height: 80px;;
+   width: 25vh;
+    margin: 30px;
+    
+    padding: 10px;
+    border-radius: 20px;
+    padding-top: 10px;
     box-shadow:
       0 2.8px 2.2px rgba(0, 0, 0, 0.034),
       0 6.7px 5.3px rgba(0, 0, 0, 0.048),
