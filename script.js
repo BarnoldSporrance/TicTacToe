@@ -35,6 +35,9 @@ const controller = {
     playerOneButton.addEventListener('click', ()=> {
        
     }) // end event listener click
+    return {
+      playerOneButton, playerTwoButton
+    }
   }),
 
   getEntry: (function(){
@@ -42,17 +45,21 @@ const controller = {
     const cells = document.querySelectorAll(".cell");
 
     let playerSelector = "x";
+    playerOneButton.classList.add('pressed');
     for (var i=0; i<=8; i++){
       cells[i].addEventListener('click', function(event) {
        
       let cellID = event.target.id;
       if (playerSelector === "x") {
-        console.log("playerSelector: " + playerSelector);
+        
       model.gameArrayFunction.gameArray.splice(cellID, 1, playerSelector);
+      playerOneButton.classList.remove('pressed');
       playerSelector ="o";
+      playerTwoButton.classList.add('pressed');
       } else if (playerSelector ==="o") {
-        console.log("playerSelector: " + playerSelector);
+        playerTwoButton.classList.remove('pressed');
         model.gameArrayFunction.gameArray.splice(cellID, 1, playerSelector);
+        playerOneButton.classList.add('pressed');
         playerSelector ="x";
       }
       view.displayBoard();
@@ -99,10 +106,11 @@ const view = {
   })(), // end mouseOutEffect
 
   displayWinner: (function(winner){
-  //  view.displayBoard();
-  alert("And the winner is " + winner);
+ 
+  
  // model.gameArrayFunction.gameArray = [" "," "," "," "," "," "," "," "," "];
   view.displayBoard();
+  alert("And the winner is " + winner);
   })
 } // end view object
 
