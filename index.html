@@ -5,32 +5,36 @@
   <title>Tic Tac Toe</title>
   <link rel="stylesheet" href="styles.css"/>
 </head>
-
-<div id="players" class="playerBoard">
-    <div id="playerOne" class="playersDisplay">
-    </div>
-    <div id="playerTwo" class="playersDisplay">
-    </div>
-</div>
 <body>
-<table>
-    <tr>
-        <td contenteditable='true' id="0"></td>
-        <td contenteditable='true' id="1"></td> 
-        <td contenteditable='true' id="2"></td>   
-    </tr>
-    <tr>
-        <td contenteditable='true' id="3"></td> 
-        <td contenteditable='true' id="4"></td> 
-        <td contenteditable='true' id="5"></td>
-    </tr>
-    <tr>
-        <td contenteditable='true' id="6"></td> 
-        <td contenteditable='true' id="7"></td> 
-        <td contenteditable='true' id="8"></td>
-    </tr>
+<div id ="playerBoard">
+  <div id="playerOneButton" class="players">
+     <p>X</p>
+  </div>
+
+  <div id="playerTwoButton" class="players">
+      <p>O</p>
+  </div>
+</div>
+
+
+
+<div class="fullgrid">
    
-</table>
+        <div id="0" class="cell"></div>
+        <div  id="1" class="cell"></div> 
+        <div  id="2" class="cell"></div>   
+    
+   
+        <div id="3" class="cell"></div> 
+        <div id="4" class="cell"></div> 
+        <div id="5" class="cell"></div>
+    
+        <div id="6" class="cell"></div> 
+        <div id="7" class="cell"></div> 
+        <div id="8" class="cell"></div>
+    
+   
+</div>
  <script src="script.js"></script>   
 </body>
 </html>
