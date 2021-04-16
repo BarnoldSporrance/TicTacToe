@@ -13,67 +13,118 @@ const model = {
   const logicVar = model.gameArrayFunction.gameArray;
 
   if (logicVar[0]=== "x" && logicVar[1] === "x" && logicVar[2] === "x" || logicVar[3]=== "x" && logicVar[4] === "x" && logicVar[5] === "x" || logicVar[6]=== "x" && logicVar[7] === "x" && logicVar[8] === "x" || logicVar[0]=== "x" && logicVar[4] === "x" && logicVar[8] === "x" || logicVar[2]=== "x" && logicVar[4] === "x" && logicVar[6] === "x" || logicVar[0]=== "x" && logicVar[3] === "x" && logicVar[6] === "x"|| logicVar[1]=== "x" && logicVar[4] === "x" && logicVar[7] === "x" || logicVar[2]=== "x" && logicVar[5] === "x" && logicVar[8] === "x"){
-    controller.getEntry.playerSelector = "x";
-    winner = controller.getEntry.playerSelector;
+    winner = "x";
     
   } else if (logicVar[0]=== "o" && logicVar[1] === "o" && logicVar[2] === "o" || logicVar[3]=== "o" && logicVar[4] === "o" && logicVar[5] === "o" || logicVar[6]=== "o" && logicVar[7] === "o" && logicVar[8] === "o" || logicVar[0]=== "o" && logicVar[4] === "o" && logicVar[8] === "o" || logicVar[2]=== "o" && logicVar[4] === "o" && logicVar[6] === "o" || logicVar[0]=== "o" && logicVar[3] === "o" && logicVar[6] === "o"|| logicVar[1]=== "o" && logicVar[4] === "o" && logicVar[7] === "o" || logicVar[2]=== "o" && logicVar[5] === "o" && logicVar[8] === "o"){
-    controller.getEntry.playerSelector = "o";
-    winner = controller.getEntry.playerSelector;
-    
+    winner ='o';
   }
  return {winner}
   },// end game logic
+
+
+playerOneShot: (function(){
+
+  const cells = document.querySelectorAll(".cell");
+  playerOneButton.classList.add('pressed');
+
+    for (var i=0; i<=model.gameArrayFunction.gameArray.length-1; i++){
+      cells[i].addEventListener('click', function(event) {
+      let cellID = event.target.id;
+      model.gameArrayFunction.gameArray.splice(cellID, 1, 'x');
+      
+      view.displayBoard();
+      model.gameLogic();
+      
+      if (model.gameLogic().winner !=="none"){
+        view.displayBoard();
+        view.displayWinner();
+        view.displayBoard();
+        } else {
+            model.playerTwoShot();
+      }
+  }); // end event listener
+} // end for
+}), // end playerOne shot
+
+playerTwoShot: (function(){
+
+  const cells = document.querySelectorAll(".cell");
+  playerTwoButton.classList.add('pressed');
+  playerOneButton.classList.remove('pressed');
+
+    for (var i=0; i<=model.gameArrayFunction.gameArray.length-1; i++){
+      cells[i].addEventListener('click', function(event) {
+      let cellID = event.target.id;
+      model.gameArrayFunction.gameArray.splice(cellID, 1, 'o');
+      view.displayBoard();
+      model.gameLogic();
+     
+      if (model.gameLogic().winner !=="none"){
+        view.displayBoard();
+        view.displayWinner();
+        model.gameArrayFunction.gameArray = [" "," "," "," "," "," "," "," "," "];
+
+        };
+      if(model.gameArrayFunction.gameArray[i] !== " "){
+      model.playerOneShot();
+      playerTwoButton.classList.remove('pressed');
+      playerOneButton.classList.add('pressed');
+      }
+  }); // end event listener
+} // end for
+}), // end playerTwo shot
+
+
+
+computerPlayerShot: (function(){
+  
+   // get randomn number
+   let randomCounter = Math.floor(Math.random() * 9);
+    
+   // if the random number is an empty cell
+   if (model.gameArrayFunction.gameArray[randomCounter] == " ") {
+    // put a computer marker (o) in that position 
+    console.log("we can place an 'o' at position:" + randomCounter);
+    model.gameArrayFunction.gameArray.splice(randomCounter, 1, "o");
+  //  controller.getEntry.playerSelector = "x";
+    playerOneButton.classList.add('pressed');
+    playerTwoButton.classList.remove('pressed');
+    // run the game engine to see if we have a winner
+    model.gameLogic();
+    view.displayBoard();
+   
+  } else if (model.gameArrayFunction.gameArray[randomCounter] !== " ") {
+    for (i=0;i<model.gameArrayFunction.gameArray.length; i++){
+      if (model.gameArrayFunction.gameArray[i] === " "){
+      console.log("It's already taken at position: " + randomCounter + ". But let's try again!");
+      model.computerPlayerShot();
+    } else if (model.gameArrayFunction.gameArray[i] !== " ") {
+      console.log("all full!");
+   } // end if
+  } // end for
+ } // end else if
+}),
 } // end model object
 
 
 const controller = {
 
   getGameMode: (function(){
-    const playerOneButton =  document.getElementById("playerOneButton");
-    const playerTwoButton = document.getElementById("PlayerTwoButton");
+   let gameMode='';
+    const playerOneSelector =  document.getElementById("onePlayerButton");
+    const playerTwoSelector = document.getElementById("twoPlayerButton");
 
-    playerOneButton.addEventListener('click', ()=> {
-       
-    }) // end event listener click
-    return {
-      playerOneButton, playerTwoButton
-    }
-  }),
-
-  getEntry: (function(){
-    //get input from player and send to model array
-    const cells = document.querySelectorAll(".cell");
-
-    let playerSelector = "x";
-    playerOneButton.classList.add('pressed');
-    for (var i=0; i<=8; i++){
-      cells[i].addEventListener('click', function(event) {
-       
-      let cellID = event.target.id;
-      if (playerSelector === "x") {
-        
-      model.gameArrayFunction.gameArray.splice(cellID, 1, playerSelector);
-      playerOneButton.classList.remove('pressed');
-      playerSelector ="o";
-      playerTwoButton.classList.add('pressed');
-      } else if (playerSelector ==="o") {
-        playerTwoButton.classList.remove('pressed');
-        model.gameArrayFunction.gameArray.splice(cellID, 1, playerSelector);
-        playerOneButton.classList.add('pressed');
-        playerSelector ="x";
-      }
-      view.displayBoard();
-
-        if (model.gameLogic().winner !=="none"){
-         
-        view.displayWinner(model.gameLogic().winner);
-        }
-     
-      }); // end event listener
-    } // end for 
-  return{ playerSelector}
-
-  })() //end get entry function
+    playerOneSelector.addEventListener('click', ()=> {
+      playerOneSelector.classList.add('pressed');
+      controller.getGameMode.gameMode = 'onePlayer'; 
+    });
+    playerTwoSelector.addEventListener('click', ()=> {
+      playerTwoSelector.classList.add('pressed');
+      controller.getGameMode.gameMode = 'twoPlayer';
+    
+   });
+   return{gameMode}
+  })(),
 } // end controller
 
 const view = {
@@ -105,15 +156,14 @@ const view = {
     }); // end 'for each' 
   })(), // end mouseOutEffect
 
-  displayWinner: (function(winner){
- 
-  
- // model.gameArrayFunction.gameArray = [" "," "," "," "," "," "," "," "," "];
-  view.displayBoard();
-  alert("And the winner is " + winner);
-  })
+  displayWinner: (function(){
+
+    alert("And the winner is " + model.gameLogic().winner);
+    view.displayBoard();
+    model.gameLogic.winner ="none";
+    model.gameArrayFunction.gameArray = [" "," "," "," "," "," "," "," "," "];
+  }) // end dsiplayWinner
 } // end view object
 
-view.displayBoard();
-
+model.playerOneShot();
 
