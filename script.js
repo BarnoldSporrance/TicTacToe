@@ -30,12 +30,19 @@ getEntry: (function(){
   let playerTicker = "one";
   
 
-    for (var i=0; i<=model.gameArrayFunction.gameArray.length-1; i++){
-      cells1[i].addEventListener('click', function banana (event) {
-      let cellID = event.target.id;
+   // for (var i=0; i<=model.gameArrayFunction.gameArray.length-1; i++){
 
-      model.gameArrayFunction.gameArray.splice(cellID, 1, 'x');
-      console.log('x: player one --' + model.gameArrayFunction.gameArray);
+
+      cells1.forEach(function(cell){
+
+
+        cell.addEventListener('click', function banana1(event) {
+        let cellID = event.target.id;
+      
+
+    model.gameArrayFunction.gameArray.splice(cellID, 1, 'x');
+    console.log('x: player one --' + model.gameArrayFunction.gameArray);
+    model.getEntry.banana2 = null;
       
       view.displayBoard();
       model.gameLogic();
@@ -49,21 +56,23 @@ getEntry: (function(){
             model.playerTwoShot();
           } else if (controller.getGameMode.gameMode ==="onePlayer"){
             model.computerPlayerShot();
-          }
-            
+          } 
       }
   }); // end event listener
-} // end for
+ // end for
+}) // end for each
 }), // end playerOne shot
 
 playerTwoShot: (function(){
-
-  const cells2 = document.querySelectorAll(".cell");
   playerTwoButton.classList.add('pressed');
   playerOneButton.classList.remove('pressed');
 
-    for (var i=0; i<=model.gameArrayFunction.gameArray.length-1; i++){
-      cells2[i].addEventListener('click', function(event) {
+  const cells2 = document.querySelectorAll(".cell");
+ 
+  cells2.forEach(function(box){
+
+  //  for (var i=0; i<=model.gameArrayFunction.gameArray.length-1; i++){
+      box.addEventListener('click', function banana2(event) {
       let cellID = event.target.id;
 
       model.gameArrayFunction.gameArray.splice(cellID, 1, 'o');
@@ -74,35 +83,26 @@ playerTwoShot: (function(){
       if (model.gameLogic().winner !=="none"){
        view.displayBoard();
       view.displayWinner();
-     model.gameArrayFunction.gameArray = [" "," "," "," "," "," "," "," "," "];
+     //model.gameArrayFunction.gameArray = [" "," "," "," "," "," "," "," "," "];
 
-        };
-      if(model.gameArrayFunction.gameArray[i] !== " "){
+        } else if (model.gameArrayFunction.gameArray[i] !== " "){
       model.getEntry();
       playerTwoButton.classList.remove('pressed');
       playerOneButton.classList.add('pressed');
       }
+    })  
   }); // end event listener
-} // end for
+//} // end for
 }), // end playerTwo shot
 
 computerPlayerShot: (function(){
-  
-   // get randomn number
    let randomCounter = Math.floor(Math.random() * 9);
-    
-   // if the random number is an empty cell
    if (model.gameArrayFunction.gameArray[randomCounter] == " ") {
-    // put a computer marker (o) in that position 
     console.log("we can place an 'o' at position:" + randomCounter);
     model.gameArrayFunction.gameArray.splice(randomCounter, 1, "o");
-
     console.log('o: computer' + model.gameArrayFunction.gameArray);
-
-  //  controller.getEntry.playerSelector = "x";
     playerOneButton.classList.add('pressed');
     playerTwoButton.classList.remove('pressed');
-    // run the game engine to see if we have a winner
     model.gameLogic();
     view.displayBoard();
    
@@ -152,7 +152,7 @@ const controller = {
 const view = {
   // populate the board with currently positioned Xs and Os
   displayBoard: (function(){
-  for (i=0; i<=8;i++){
+  for (i=0; i<=model.gameArrayFunction.gameArray.length-1;i++){
     let cell = document.getElementById(i);
     cell.innerText = model.gameArrayFunction.gameArray[i];
     }
@@ -181,9 +181,10 @@ const view = {
   displayWinner: (function(){
     //view.displayBoard();
 
+  alert("And the winner is " + model.gameLogic().winner);
   console.log("And the winner is " + model.gameLogic().winner);
-  model.gameArrayFunction.gameArray = [" "," "," "," "," "," "," "," "," "];
-  //model.gameLogic.winner ="none";
+ model.gameArrayFunction.gameArray = [" "," "," "," "," "," "," "," "," "];
+  model.gameLogic.winner ="none";
   
 
   view.displayBoard();
