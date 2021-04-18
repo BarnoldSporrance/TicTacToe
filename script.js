@@ -37,12 +37,12 @@ getEntry: (function(){
 
 
         cell.addEventListener('click', function banana1(event) {
-        let cellID = event.target.id;
+        let cellID1 = event.target.id;
       
 
-    model.gameArrayFunction.gameArray.splice(cellID, 1, 'x');
+    model.gameArrayFunction.gameArray.splice(cellID1, 1, 'x');
     console.log('x: player one --' + model.gameArrayFunction.gameArray);
-    model.getEntry.banana2 = null;
+   // model.getEntry.banana2 = null;
       
       view.displayBoard();
       model.gameLogic();
@@ -73,9 +73,9 @@ playerTwoShot: (function(){
 
   //  for (var i=0; i<=model.gameArrayFunction.gameArray.length-1; i++){
       box.addEventListener('click', function banana2(event) {
-      let cellID = event.target.id;
+      let cellID2 = event.target.id;
 
-      model.gameArrayFunction.gameArray.splice(cellID, 1, 'o');
+      model.gameArrayFunction.gameArray.splice(cellID2, 1, 'o');
       console.log('o: player 2 --' + model.gameArrayFunction.gameArray);
       view.displayBoard();
       model.gameLogic();
