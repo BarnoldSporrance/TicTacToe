@@ -30,37 +30,37 @@ getEntry: (function(){
   const cells = document.querySelectorAll(".cell");
   playerOneButton.classList.add('pressed');
 
-  cells.forEach(function(cell){
-  cell.addEventListener('click', function(event) {
+  for (i=0; i<model.gameArrayFunction.gameArray.length;i++){
+    
+  cells[i].addEventListener('click', function(event) {
   let cellID = event.target.id;
 
 
-  if (this.playerTicker === "x"){
-    model.gameArrayFunction.gameArray.splice(cellID, 1, playerTicker);
+  if (playerTicker === "x"){
+    model.gameArrayFunction.gameArray.splice(cellID, 1, 'x');
     
     view.displayBoard();
-    model.gameLogic();
+    
 
     console.log('x: player one --' + model.gameArrayFunction.gameArray);
     playerTicker = "o";
     
-  } else {
+  } else if (playerTicker === "o") {
   
 
-    model.gameArrayFunction.gameArray.splice(cellID, 1, playerTicker);
+    model.gameArrayFunction.gameArray.splice(cellID, 1, 'o');
 
     view.displayBoard();
-    model.gameLogic();
+   
 
 
     console.log('o: player two --' + model.gameArrayFunction.gameArray);
     playerTicker = "x";
   }
-   
-    
 
+  model.gameLogic();
     if (model.gameLogic().winner !=="none"){
-      view.displayBoard();
+     // view.displayBoard();
       view.displayWinner();
       
             } else if (model.gameLogic().winner === "none") {
@@ -104,7 +104,7 @@ getEntry: (function(){
   }); // end event listener
   
  // end for
-}) // end for each
+} // end for each
 
 }), // end getEntry
 
