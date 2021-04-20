@@ -1,3 +1,5 @@
+
+
 const model = {
  // holds current board state  -IIFE in order to keep Tds from reading"undefined" as default
   gameArrayFunction: (function() {
@@ -23,77 +25,88 @@ const model = {
 
   
 getEntry: (function(){
-
-  const cells1 = document.querySelectorAll(".cell");
+  let playerTicker = "x";
+  // TONIGHTS FUTILE BATTLE****************
+  const cells = document.querySelectorAll(".cell");
   playerOneButton.classList.add('pressed');
 
-  let playerTicker = "one";
+  cells.forEach(function(cell){
+  cell.addEventListener('click', function(event) {
+  let cellID = event.target.id;
+
+
+  if (this.playerTicker === "x"){
+    model.gameArrayFunction.gameArray.splice(cellID, 1, playerTicker);
+    
+    view.displayBoard();
+    model.gameLogic();
+
+    console.log('x: player one --' + model.gameArrayFunction.gameArray);
+    playerTicker = "o";
+    
+  } else {
   
 
-   // for (var i=0; i<=model.gameArrayFunction.gameArray.length-1; i++){
+    model.gameArrayFunction.gameArray.splice(cellID, 1, playerTicker);
+
+    view.displayBoard();
+    model.gameLogic();
 
 
-      cells1.forEach(function(cell){
+    console.log('o: player two --' + model.gameArrayFunction.gameArray);
+    playerTicker = "x";
+  }
+   
+    
 
-
-        cell.addEventListener('click', function banana1(event) {
-        let cellID1 = event.target.id;
-      
-
-    model.gameArrayFunction.gameArray.splice(cellID1, 1, 'x');
-    console.log('x: player one --' + model.gameArrayFunction.gameArray);
-   // model.getEntry.banana2 = null;
-      
+    if (model.gameLogic().winner !=="none"){
       view.displayBoard();
-      model.gameLogic();
+      view.displayWinner();
       
-      if (model.gameLogic().winner !=="none"){
-        view.displayBoard();
-        view.displayWinner();
-        view.displayBoard();
-        } else {
-          if(controller.getGameMode.gameMode ==="twoPlayer"){  
-            model.playerTwoShot();
-          } else if (controller.getGameMode.gameMode ==="onePlayer"){
-            model.computerPlayerShot();
-          } 
-      }
+            } else if (model.gameLogic().winner === "none") {
+              if(controller.getGameMode.gameMode ==="twoPlayer"){  
+                model.getEntry();
+              } else if (controller.getGameMode.gameMode ==="onePlayer"){
+                model.computerPlayerShot();
+              } 
+          }
+         // return{playerTicker} 
+      // end if playerticker === one
+    /*
+    if (playerTicker === "two") {
+   
+    model.gameArrayFunction.gameArray.splice(cellID, 1, 'o');
+    console.log('o: player two --' + model.gameArrayFunction.gameArray);
+
+    console.log("playerTicker just after pushing player two 'o' to array: " + playerTicker);
+    
+    playerTicker = "one";
+    console.log("playerTicker just after trying to assign the value of player one: " + playerTicker);
+    
+    view.displayBoard();
+    model.gameLogic();
+
+    if (model.gameLogic().winner !=="none"){
+      view.displayBoard();
+      view.displayWinner();
+      
+            } else if (model.gameLogic().winner == "none") {
+              if(controller.getGameMode.gameMode ==="twoPlayer"){  
+                model.getEntry();
+              } else if (controller.getGameMode.gameMode ==="onePlayer"){
+                model.computerPlayerShot();
+              } 
+          }
+       //   return{playerTicker} 
+  }// end if playerTicker === two
+  */
+ 
   }); // end event listener
+  
  // end for
 }) // end for each
-}), // end playerOne shot
 
-playerTwoShot: (function(){
-  playerTwoButton.classList.add('pressed');
-  playerOneButton.classList.remove('pressed');
-
-  const cells2 = document.querySelectorAll(".cell");
- 
-  cells2.forEach(function(box){
-
-  //  for (var i=0; i<=model.gameArrayFunction.gameArray.length-1; i++){
-      box.addEventListener('click', function banana2(event) {
-      let cellID2 = event.target.id;
-
-      model.gameArrayFunction.gameArray.splice(cellID2, 1, 'o');
-      console.log('o: player 2 --' + model.gameArrayFunction.gameArray);
-      view.displayBoard();
-      model.gameLogic();
-    
-      if (model.gameLogic().winner !=="none"){
-       view.displayBoard();
-      view.displayWinner();
-     //model.gameArrayFunction.gameArray = [" "," "," "," "," "," "," "," "," "];
-
-        } else if (model.gameArrayFunction.gameArray[i] !== " "){
-      model.getEntry();
-      playerTwoButton.classList.remove('pressed');
-      playerOneButton.classList.add('pressed');
-      }
-    })  
-  }); // end event listener
-//} // end for
-}), // end playerTwo shot
+}), // end getEntry
 
 computerPlayerShot: (function(){
    let randomCounter = Math.floor(Math.random() * 9);
@@ -179,18 +192,16 @@ const view = {
   })(), // end mouseOutEffect
 
   displayWinner: (function(){
-    //view.displayBoard();
+
 
   alert("And the winner is " + model.gameLogic().winner);
   console.log("And the winner is " + model.gameLogic().winner);
- model.gameArrayFunction.gameArray = [" "," "," "," "," "," "," "," "," "];
-  model.gameLogic.winner ="none";
-  
-
+  model.gameArrayFunction.gameArray = [" "," "," "," "," "," "," "," "," "];
+ // model.gameLogic.winner ="none";
   view.displayBoard();
 
   }) // end dsiplayWinner
 } // end view object
 
 
-view.displayBoard();
+//view.displayBoard();
