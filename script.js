@@ -1,9 +1,7 @@
-
-
 const model = {
  // holds current board state  -IIFE in order to keep Tds from reading"undefined" as default
   gameArrayFunction: (function() {
-    const gameArray =[" "," "," "," "," "," "," "," "," "];
+    let gameArray =[" "," "," "," "," "," "," "," "," "];
     return{
       gameArray
     }
@@ -22,54 +20,51 @@ const model = {
  return {winner}
   },// end game logic
 
-
-  
-getEntry: (function(){
-  let playerTicker = "x";
-  // TONIGHTS FUTILE BATTLE****************
+getCellId: (function(){
   const cells = document.querySelectorAll(".cell");
   playerOneButton.classList.add('pressed');
-
-  for (i=0; i<model.gameArrayFunction.gameArray.length;i++){
+  for (i=0; i<cells.length;i++){ 
     
-  cells[i].addEventListener('click', function(event) {
-  let cellID = event.target.id;
+    cells[i].addEventListener('click', function(event) {
+    let cellID = event.target.id;
+    model.getEntry(cellID)
+    })  // end event listener
+  } // end for
+})(),// end getCellId
 
 
-  if (playerTicker === "x"){
-    model.gameArrayFunction.gameArray.splice(cellID, 1, 'x');
+playerTicker: "x",
+
+getEntry: (function(cellID){
+
+    model.gameArrayFunction.gameArray.splice(cellID, 1, model.playerTicker);
     
     view.displayBoard();
-    
-
+    model.gameLogic();
     console.log('x: player one --' + model.gameArrayFunction.gameArray);
-    playerTicker = "o";
-    
-  } else if (playerTicker === "o") {
-  
 
-    model.gameArrayFunction.gameArray.splice(cellID, 1, 'o');
+    if (model.playerTicker === "x"){
+      model.playerTicker="o";
+    } else if (model.playerTicker === "o"){
+      model.playerTicker = "x";
+    }
 
-    view.displayBoard();
-   
-
-
-    console.log('o: player two --' + model.gameArrayFunction.gameArray);
-    playerTicker = "x";
-  }
-
-  model.gameLogic();
     if (model.gameLogic().winner !=="none"){
-     // view.displayBoard();
+    
       view.displayWinner();
       
             } else if (model.gameLogic().winner === "none") {
               if(controller.getGameMode.gameMode ==="twoPlayer"){  
-                model.getEntry();
+               // model.getEntry();
               } else if (controller.getGameMode.gameMode ==="onePlayer"){
                 model.computerPlayerShot();
               } 
           }
+  }), // end getEntry
+
+
+  
+
          // return{playerTicker} 
       // end if playerticker === one
     /*
@@ -101,19 +96,19 @@ getEntry: (function(){
   }// end if playerTicker === two
   */
  
-  }); // end event listener
+ // end event listener
   
  // end for
-} // end for each
+// end for each
 
-}), // end getEntry
+// end getEntry
 
 computerPlayerShot: (function(){
    let randomCounter = Math.floor(Math.random() * 9);
    if (model.gameArrayFunction.gameArray[randomCounter] == " ") {
-    console.log("we can place an 'o' at position:" + randomCounter);
+   // console.log("we can place an 'o' at position:" + randomCounter);
     model.gameArrayFunction.gameArray.splice(randomCounter, 1, "o");
-    console.log('o: computer' + model.gameArrayFunction.gameArray);
+ //   console.log('o: computer' + model.gameArrayFunction.gameArray);
     playerOneButton.classList.add('pressed');
     playerTwoButton.classList.remove('pressed');
     model.gameLogic();
@@ -122,14 +117,14 @@ computerPlayerShot: (function(){
   } else if (model.gameArrayFunction.gameArray[randomCounter] !== " ") {
     for (i=0;i<model.gameArrayFunction.gameArray.length; i++){
       if (model.gameArrayFunction.gameArray[i] === " "){
-      console.log("It's already taken at position: " + randomCounter + ". But let's try again!");
+   //   console.log("It's already taken at position: " + randomCounter + ". But let's try again!");
       model.computerPlayerShot();
     } else if (model.gameArrayFunction.gameArray[i] !== " ") {
-      console.log("all full!");
+    //  console.log("all full!");
    } // end if
   } // end for
  } // end else if
-}),
+}), // end computerPlayerShot
 } // end model object
 
 
@@ -165,8 +160,11 @@ const controller = {
 const view = {
   // populate the board with currently positioned Xs and Os
   displayBoard: (function(){
-  for (i=0; i<=model.gameArrayFunction.gameArray.length-1;i++){
+   // let cells = document.querySelectorAll(".cell");;
+  for (i=0; i<model.gameArrayFunction.gameArray.length;i++){
+    
     let cell = document.getElementById(i);
+  //  console.log("cell: " + cell);
     cell.innerText = model.gameArrayFunction.gameArray[i];
     }
   }), // end populate the on-page grid loop
@@ -192,8 +190,6 @@ const view = {
   })(), // end mouseOutEffect
 
   displayWinner: (function(){
-
-
   alert("And the winner is " + model.gameLogic().winner);
   console.log("And the winner is " + model.gameLogic().winner);
   model.gameArrayFunction.gameArray = [" "," "," "," "," "," "," "," "," "];
@@ -204,4 +200,4 @@ const view = {
 } // end view object
 
 
-//view.displayBoard();
+
