@@ -22,7 +22,7 @@ body{
 }
 
 .fullgrid {
-    order:2;
+    
     display: grid;
     grid-template-columns: 100px 100px 100px;
     grid-template-rows: 100px 100px 100px;
@@ -58,7 +58,7 @@ body{
 }
 
 .playerBoard {
-    order:1;
+    
     display:flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -88,19 +88,25 @@ body{
     ;
   }
 
-  .form {
+   .formWrapper {
+    display: flex;
+    flex-direction: column;
     font-family: 'Roboto', sans-serif; 
-    color: #ebebeb;
+    font-size: 25px;
+    color: #43444D;
     border-style: solid;
     border-color: #43444D;
-    background-color: #43444D;
-    height: 80px;
+    border-width: 1px;
+    height: 150px;
     min-height: 80px;;
-    width: 25vh;
-    margin: 30px;
-    padding: 10px;
+    width: 360px;
+    margin: 40px;
+    padding: 20px;
     border-radius: 20px;
-    padding-top: 10px;
+    padding-top: 20px;
+    position: relative;
+   
+ 
     box-shadow:
       0 2.8px 2.2px rgba(0, 0, 0, 0.034),
       0 6.7px 5.3px rgba(0, 0, 0, 0.048),
@@ -109,6 +115,20 @@ body{
       0 44.8px 33.4px rgba(0, 0, 0, 0.086),
       0 100px 80px rgba(0, 0, 0, 0.12)
     ;
+  }
+
+  #submitButton{
+   width: 120px;
+   position: absolute;
+   bottom:20px;
+   right:20px;
+   text-align: center;
+   font-family: 'Roboto', sans-serif;
+   font-size: 25px;
+   color: #43444D;
+   border-radius: 12%;
+   align-self: flex-end;
+   background-color: white;
   }
 
   .mousedOver{
@@ -124,7 +144,7 @@ body{
       margin: 40px;
       text-align: center;
       font-family: 'Roboto', sans-serif;
-      font-size: 30px;
+      font-size: 25px;
       color: #43444D;
       box-shadow:
       0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -157,7 +177,66 @@ body{
   ;
 }
 
-  #playerBoard, #gameSelectBoard{
+.playerNameBoard {
+  
+  height: 110px;
+  align-content: center;
+  align-items: center;
+  width: 600px;
+  border-radius: 12%;
+  margin: 40px;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 25px;
+  color: #43444D;
+  
+}
+
+.playerNameBoxes{
+  border: black 2px solid;
+  height: 90px;
+  line-height: 90px;
+  width: 250px;
+  border-radius: 12%;
+  margin: 20px;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 25px;
+  color: #43444D;
+  box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 44.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12)
+;
+}
+
+.promptBox {
+ 
+  align-content: center;
+  align-items: center;
+  width: 380px;
+  border-radius: 12%;
+  margin: 40px;
+  border: 1px solid black;
+  text-align: center;
+  font-family: 'Roboto', sans-serif;
+  font-size: 25px;
+  color: #43444D;
+  box-shadow:
+  0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+  0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+  0 12.5px 10px rgba(0, 0, 0, 0.06),
+  0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+  0 44.8px 33.4px rgba(0, 0, 0, 0.086),
+  0 100px 80px rgba(0, 0, 0, 0.12)
+;
+}
+
+
+  #playerBoard, #gameSelectBoard, #playerNameBoard{
       display: flex;
       flex-direction: row;
       justify-content: space-between;

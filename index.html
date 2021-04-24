@@ -6,15 +6,43 @@
   <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
+
+  <div id="promptBox" class = promptBox>
+<p>Choose game mode</p>
+  </div>
+  
+
 <div id ="gameSelectBoard">
   <div id="onePlayerButton" class="playerSelectors">
      <p>One player</p>
   </div>
 
+
   <div id="twoPlayerButton" class="playerSelectors">
       <p>Two players</p>
   </div>
 </div>
+
+
+
+
+
+
+<div id ="formWrapper" class="formWrapper">
+<form id="nameForm" class="form">
+  <label for="playerOneNameEntry">player 1: </label>
+  <input style="font-size:25px" type="text"id = playerOneNameEntry name = "playerOneNameEntry"><br><br>
+
+  <label for="playerTwoNameEntry">player 2:</label>
+  <input style="font-size:25px" type="text"id = playerTwoNameEntry name = "playerOneNameEntry"><br>
+</form>
+<button id="submitButton">
+  submit
+</button>
+</div>
+
+
+
 
 <div id ="playerBoard">
   <div id="playerOneButton" class="players">
@@ -25,6 +53,7 @@
       <p>O</p>
   </div>
 </div>
+
 
 
 
@@ -44,6 +73,12 @@
         <div id="8" class="cell"></div>
     
    
+</div>
+<div id = "playerNameBoard" class = "playerNameBoard">
+  <div id = playerOneNamePlace class="playerNameBoxes">
+  </div>
+  <div id = playerTwoNamePlace class="playerNameBoxes">
+  </div>
 </div>
  <script src="script.js"></script>   
 </body>

@@ -32,8 +32,8 @@ getCellId: (function(){
   } // end for
 })(),// end getCellId
 
-
 playerTicker: "x",
+//firstShot: "false",
 
 getEntry: (function(cellID){
 
@@ -55,59 +55,19 @@ getEntry: (function(cellID){
       
             } else if (model.gameLogic().winner === "none") {
               if(controller.getGameMode.gameMode ==="twoPlayer"){  
-               // model.getEntry();
+          
               } else if (controller.getGameMode.gameMode ==="onePlayer"){
                 model.computerPlayerShot();
               } 
           }
   }), // end getEntry
 
-
-  
-
-         // return{playerTicker} 
-      // end if playerticker === one
-    /*
-    if (playerTicker === "two") {
-   
-    model.gameArrayFunction.gameArray.splice(cellID, 1, 'o');
-    console.log('o: player two --' + model.gameArrayFunction.gameArray);
-
-    console.log("playerTicker just after pushing player two 'o' to array: " + playerTicker);
-    
-    playerTicker = "one";
-    console.log("playerTicker just after trying to assign the value of player one: " + playerTicker);
-    
-    view.displayBoard();
-    model.gameLogic();
-
-    if (model.gameLogic().winner !=="none"){
-      view.displayBoard();
-      view.displayWinner();
-      
-            } else if (model.gameLogic().winner == "none") {
-              if(controller.getGameMode.gameMode ==="twoPlayer"){  
-                model.getEntry();
-              } else if (controller.getGameMode.gameMode ==="onePlayer"){
-                model.computerPlayerShot();
-              } 
-          }
-       //   return{playerTicker} 
-  }// end if playerTicker === two
-  */
- 
- // end event listener
-  
- // end for
-// end for each
-
-// end getEntry
-
 computerPlayerShot: (function(){
    let randomCounter = Math.floor(Math.random() * 9);
    if (model.gameArrayFunction.gameArray[randomCounter] == " ") {
    // console.log("we can place an 'o' at position:" + randomCounter);
     model.gameArrayFunction.gameArray.splice(randomCounter, 1, "o");
+    model.playerTicker = "x";
  //   console.log('o: computer' + model.gameArrayFunction.gameArray);
     playerOneButton.classList.add('pressed');
     playerTwoButton.classList.remove('pressed');
@@ -141,7 +101,7 @@ const controller = {
       playerTwoSelector.classList.remove('pressed');
 
       controller.getGameMode.gameMode = 'onePlayer';
-      model.getEntry();
+     // model.getEntry();
     });
 
     playerTwoSelector.addEventListener('click', ()=> {
@@ -150,11 +110,29 @@ const controller = {
       playerOneSelector.classList.remove('pressed');
 
       controller.getGameMode.gameMode = 'twoPlayer';
-      model.getEntry();
+    //  model.getEntry();
     
    });
    return{gameMode}
   })(),
+
+getPLayerNames: (function(){
+ let playerOneName = document.getElementById("playerOneNameEntry");
+ let playerTwoName = document.getElementById("playerTwoNameEntry");
+ let submitButton = document.getElementById("submitButton");
+
+submitButton.addEventListener("click", function(){
+  view.displayPlayerNames(playerOneName,playerTwoName);
+})
+
+
+})(),
+
+
+
+
+
+
 } // end controller
 
 const view = {
@@ -192,11 +170,21 @@ const view = {
   displayWinner: (function(){
   alert("And the winner is " + model.gameLogic().winner);
   console.log("And the winner is " + model.gameLogic().winner);
-  model.gameArrayFunction.gameArray = [" "," "," "," "," "," "," "," "," "];
+ // model.gameArrayFunction.gameArray = [" "," "," "," "," "," "," "," "," "];
  // model.gameLogic.winner ="none";
   view.displayBoard();
 
-  }) // end dsiplayWinner
+  }), // end dsiplayWinner
+
+displayPlayerNames: (function(playerOneName,playerTwoName){
+  let playerOneNamePrint = document.getElementById("playerOneNamePlace");
+  playerOneNamePrint.innerText = playerOneName.value;
+
+  let playerTwoNamePrint = document.getElementById("playerTwoNamePlace");
+  playerTwoNamePrint.innerText = playerTwoName.value;
+}),
+
+
 } // end view object
 
 
