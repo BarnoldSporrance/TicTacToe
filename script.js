@@ -33,9 +33,13 @@ getCellId: (function(){
 })(),// end getCellId
 
 playerTicker: "x",
-//firstShot: "false",
+
 
 getEntry: (function(cellID){
+   let playerOneFocus = document.getElementById("playerOneNamePlace");
+   let playerTwoFocus = document.getElementById("playerTwoNamePlace");
+
+
 
     model.gameArrayFunction.gameArray.splice(cellID, 1, model.playerTicker);
     
@@ -44,9 +48,19 @@ getEntry: (function(cellID){
     console.log('x: player one --' + model.gameArrayFunction.gameArray);
 
     if (model.playerTicker === "x"){
+
+      
+      
       model.playerTicker="o";
+
+     // controller.toggleFocus(model.playerTicker)
+      
     } else if (model.playerTicker === "o"){
       model.playerTicker = "x";
+     // controller.toggleFocus(model.playerTicker)
+     // playerTwoFocus.classList.remove("pressed");
+     // playerOneFocus.classList.add("pressed");
+
     }
 
     if (model.gameLogic().winner !=="none"){
@@ -60,17 +74,18 @@ getEntry: (function(cellID){
                 model.computerPlayerShot();
               } 
           }
+          return{playerTwoFocus, playerOneFocus}
   }), // end getEntry
 
 computerPlayerShot: (function(){
    let randomCounter = Math.floor(Math.random() * 9);
    if (model.gameArrayFunction.gameArray[randomCounter] == " ") {
-   // console.log("we can place an 'o' at position:" + randomCounter);
+   
     model.gameArrayFunction.gameArray.splice(randomCounter, 1, "o");
     model.playerTicker = "x";
- //   console.log('o: computer' + model.gameArrayFunction.gameArray);
-    playerOneButton.classList.add('pressed');
-    playerTwoButton.classList.remove('pressed');
+    
+
+
     model.gameLogic();
     view.displayBoard();
    
@@ -101,7 +116,15 @@ const controller = {
       playerTwoSelector.classList.remove('pressed');
 
       controller.getGameMode.gameMode = 'onePlayer';
-     // model.getEntry();
+
+      view.initialView.formWrapper.style.display = "block";
+
+      view.initialView.playerTwoNameEntry.style.display = "none";
+     view.initialView.playerTwoNameEntryLabel.style.display = "none";
+
+
+      view.initialView.gameSelectBoard.style.display = "none";
+      view.initialView.promptBox.innerText = "enter P1 name";  
     });
 
     playerTwoSelector.addEventListener('click', ()=> {
@@ -110,8 +133,12 @@ const controller = {
       playerOneSelector.classList.remove('pressed');
 
       controller.getGameMode.gameMode = 'twoPlayer';
-    //  model.getEntry();
-    
+
+      view.initialView.formWrapper.style.display = "block";
+
+      view.initialView.gameSelectBoard.style.display = "none";
+      view.initialView.promptBox.innerText = "enter player names";  
+
    });
    return{gameMode}
   })(),
@@ -123,11 +150,13 @@ getPLayerNames: (function(){
 
 submitButton.addEventListener("click", function(){
   view.displayPlayerNames(playerOneName,playerTwoName);
+  view.initialView.formWrapper.style.display = "none";
+  view.initialView.promptBox.innerText = "FIGHT!";
+  view.initialView.playerNameBoard.style.display = "flex";
 })
 
 
-})(),
-
+})()
 
 
 
@@ -170,8 +199,6 @@ const view = {
   displayWinner: (function(){
   alert("And the winner is " + model.gameLogic().winner);
   console.log("And the winner is " + model.gameLogic().winner);
- // model.gameArrayFunction.gameArray = [" "," "," "," "," "," "," "," "," "];
- // model.gameLogic.winner ="none";
   view.displayBoard();
 
   }), // end dsiplayWinner
@@ -179,11 +206,40 @@ const view = {
 displayPlayerNames: (function(playerOneName,playerTwoName){
   let playerOneNamePrint = document.getElementById("playerOneNamePlace");
   playerOneNamePrint.innerText = playerOneName.value;
+  playerOneNamePrint.classList.add("pressed");
+
 
   let playerTwoNamePrint = document.getElementById("playerTwoNamePlace");
+  
+  if (controller.getGameMode.gameMode === "twoPlayer"){
   playerTwoNamePrint.innerText = playerTwoName.value;
+  } else if (controller.getGameMode.gameMode === "onePlayer") {
+    playerTwoNamePrint.innerText = "Computer";
+  }
+  return{playerOneNamePrint, playerTwoNamePrint}
 }),
 
+initialView: (function(){
+
+  let formWrapper = document.getElementById("formWrapper");
+  formWrapper.style.display="none";
+
+  let playerBoard = document.getElementById("playerBoard");
+  playerBoard.style.display="none";
+
+  let playerNameBoard = document.getElementById("playerNameBoard");
+  playerNameBoard.style.display = "none";
+
+  let promptBox = document.getElementById("promptBox");
+  promptBox.innerText = "choose game"
+
+  let gameSelectBoard = document.getElementById("gameSelectBoard");
+  
+  let playerTwoNameEntry = document.getElementById("playerTwoNameEntry");
+  let playerTwoNameEntryLabel = document.getElementById("playerTwoNameEntryLabel");
+
+  return{formWrapper,playerBoard,promptBox, gameSelectBoard, playerTwoNameEntry, playerTwoNameEntryLabel, playerNameBoard}
+})()
 
 } // end view object
 

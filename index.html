@@ -8,7 +8,7 @@
 <body>
 
   <div id="promptBox" class = promptBox>
-<p>Choose game mode</p>
+
   </div>
   
 
@@ -30,11 +30,14 @@
 
 <div id ="formWrapper" class="formWrapper">
 <form id="nameForm" class="form">
+
   <label for="playerOneNameEntry">player 1: </label>
   <input style="font-size:25px" type="text"id = playerOneNameEntry name = "playerOneNameEntry"><br><br>
 
-  <label for="playerTwoNameEntry">player 2:</label>
-  <input style="font-size:25px" type="text"id = playerTwoNameEntry name = "playerOneNameEntry"><br>
+  <label id ="playerTwoNameEntryLabel" for="playerTwoNameEntry">player 2:</label>
+  <input style="font-size:25px" type="text"id = "playerTwoNameEntry" name = "playerOneNameEntry"><br>
+
+
 </form>
 <button id="submitButton">
   submit
@@ -75,9 +78,9 @@
    
 </div>
 <div id = "playerNameBoard" class = "playerNameBoard">
-  <div id = playerOneNamePlace class="playerNameBoxes">
+  <div id = "playerOneNamePlace" class="playerNameBoxes">
   </div>
-  <div id = playerTwoNamePlace class="playerNameBoxes">
+  <div id = "playerTwoNamePlace" class="playerNameBoxes">
   </div>
 </div>
  <script src="script.js"></script>   
