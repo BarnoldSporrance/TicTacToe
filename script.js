@@ -22,7 +22,7 @@ const model = {
 
 getCellId: (function(){
   const cells = document.querySelectorAll(".cell");
-  playerOneButton.classList.add('pressed');
+ // playerOneButton.classList.add('pressed');
   for (i=0; i<cells.length;i++){ 
     
     cells[i].addEventListener('click', function(event) {
@@ -36,10 +36,10 @@ playerTicker: "x",
 
 
 getEntry: (function(cellID){
-   let playerOneFocus = document.getElementById("playerOneNamePlace");
-   let playerTwoFocus = document.getElementById("playerTwoNamePlace");
+   let PlayerOneNamePlace = document.getElementById("playerOneNamePlace");
+   let PlayerTwoNamePlace = document.getElementById("playerTwoNamePlace");
 
-
+  
 
     model.gameArrayFunction.gameArray.splice(cellID, 1, model.playerTicker);
     
@@ -48,19 +48,21 @@ getEntry: (function(cellID){
     console.log('x: player one --' + model.gameArrayFunction.gameArray);
 
     if (model.playerTicker === "x"){
+     PlayerOneNamePlace.classList.remove("pressed");
+     PlayerTwoNamePlace.classList.add("pressed");
 
-      
+      console.log(PlayerOneNamePlace);
+      console.log(PlayerTwoNamePlace);
       
       model.playerTicker="o";
 
-     // controller.toggleFocus(model.playerTicker)
+      
+    
       
     } else if (model.playerTicker === "o"){
       model.playerTicker = "x";
-     // controller.toggleFocus(model.playerTicker)
-     // playerTwoFocus.classList.remove("pressed");
-     // playerOneFocus.classList.add("pressed");
-
+   
+  
     }
 
     if (model.gameLogic().winner !=="none"){
@@ -74,7 +76,7 @@ getEntry: (function(cellID){
                 model.computerPlayerShot();
               } 
           }
-          return{playerTwoFocus, playerOneFocus}
+          return{PlayerTwoNamePlace, PlayerOneNamePlace}
   }), // end getEntry
 
 computerPlayerShot: (function(){
@@ -87,6 +89,12 @@ computerPlayerShot: (function(){
 
 
     model.gameLogic();
+
+    if (model.gameLogic().winner !=="none"){
+    
+      view.displayWinner();
+    
+    }
     view.displayBoard();
    
   } else if (model.gameArrayFunction.gameArray[randomCounter] !== " ") {
@@ -95,7 +103,9 @@ computerPlayerShot: (function(){
    //   console.log("It's already taken at position: " + randomCounter + ". But let's try again!");
       model.computerPlayerShot();
     } else if (model.gameArrayFunction.gameArray[i] !== " ") {
-    //  console.log("all full!");
+    
+    
+       console.log("all full!");
    } // end if
   } // end for
  } // end else if
@@ -201,7 +211,7 @@ const view = {
   console.log("And the winner is " + model.gameLogic().winner);
   view.displayBoard();
 
-  }), // end dsiplayWinner
+  }), // end displayWinner
 
 displayPlayerNames: (function(playerOneName,playerTwoName){
   let playerOneNamePrint = document.getElementById("playerOneNamePlace");
@@ -224,8 +234,7 @@ initialView: (function(){
   let formWrapper = document.getElementById("formWrapper");
   formWrapper.style.display="none";
 
-  let playerBoard = document.getElementById("playerBoard");
-  playerBoard.style.display="none";
+  
 
   let playerNameBoard = document.getElementById("playerNameBoard");
   playerNameBoard.style.display = "none";
@@ -238,7 +247,7 @@ initialView: (function(){
   let playerTwoNameEntry = document.getElementById("playerTwoNameEntry");
   let playerTwoNameEntryLabel = document.getElementById("playerTwoNameEntryLabel");
 
-  return{formWrapper,playerBoard,promptBox, gameSelectBoard, playerTwoNameEntry, playerTwoNameEntryLabel, playerNameBoard}
+  return{formWrapper,promptBox, gameSelectBoard, playerTwoNameEntry, playerTwoNameEntryLabel, playerNameBoard}
 })()
 
 } // end view object
