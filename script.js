@@ -34,12 +34,9 @@ getCellId: (function(){
 
 playerTicker: "x",
 
-
 getEntry: (function(cellID){
    let PlayerOneNamePlace = document.getElementById("playerOneNamePlace");
    let PlayerTwoNamePlace = document.getElementById("playerTwoNamePlace");
-
-  
 
     model.gameArrayFunction.gameArray.splice(cellID, 1, model.playerTicker);
     
@@ -50,19 +47,12 @@ getEntry: (function(cellID){
     if (model.playerTicker === "x"){
      PlayerOneNamePlace.classList.remove("pressed");
      PlayerTwoNamePlace.classList.add("pressed");
-
-      console.log(PlayerOneNamePlace);
-      console.log(PlayerTwoNamePlace);
-      
-      model.playerTicker="o";
-
-      
-    
+     model.playerTicker="o";
       
     } else if (model.playerTicker === "o"){
       model.playerTicker = "x";
-   
-  
+      PlayerOneNamePlace.classList.add("pressed");
+      PlayerTwoNamePlace.classList.remove("pressed");
     }
 
     if (model.gameLogic().winner !=="none"){
@@ -85,15 +75,17 @@ computerPlayerShot: (function(){
    
     model.gameArrayFunction.gameArray.splice(randomCounter, 1, "o");
     model.playerTicker = "x";
-    
+    let computerShotPlayerOne = document.getElementById("playerOneNamePlace");
+     computerShotPlayerOne.classList.add("pressed");
 
+     let computerShotPlayerTwo = document.getElementById("playerTwoNamePlace");
+     computerShotPlayerTwo.classList.remove("pressed");
 
     model.gameLogic();
 
     if (model.gameLogic().winner !=="none"){
     
       view.displayWinner();
-    
     }
     view.displayBoard();
    
@@ -103,7 +95,6 @@ computerPlayerShot: (function(){
    //   console.log("It's already taken at position: " + randomCounter + ". But let's try again!");
       model.computerPlayerShot();
     } else if (model.gameArrayFunction.gameArray[i] !== " ") {
-    
     
        console.log("all full!");
    } // end if
@@ -122,24 +113,23 @@ const controller = {
 
     playerOneSelector.addEventListener('click', ()=> {
       playerOneSelector.classList.add('pressed');
-      playerTwoSelector.classList.add('noClicks');
-      playerTwoSelector.classList.remove('pressed');
+     
+     playerTwoSelector.classList.remove('pressed');
 
       controller.getGameMode.gameMode = 'onePlayer';
 
       view.initialView.formWrapper.style.display = "block";
 
       view.initialView.playerTwoNameEntry.style.display = "none";
-     view.initialView.playerTwoNameEntryLabel.style.display = "none";
-
+      view.initialView.playerTwoNameEntryLabel.style.display = "none";
 
       view.initialView.gameSelectBoard.style.display = "none";
       view.initialView.promptBox.innerText = "enter P1 name";  
     });
 
     playerTwoSelector.addEventListener('click', ()=> {
-      playerTwoSelector.classList.add('pressed');
-      playerOneSelector.classList.add('noClicks');
+     playerTwoSelector.classList.add('pressed');
+    playerOneSelector.classList.add('noClicks');
       playerOneSelector.classList.remove('pressed');
 
       controller.getGameMode.gameMode = 'twoPlayer';
@@ -164,14 +154,16 @@ submitButton.addEventListener("click", function(){
   view.initialView.promptBox.innerText = "FIGHT!";
   view.initialView.playerNameBoard.style.display = "flex";
 })
+})(),
 
-
+resetGame: (function(){
+  let resetButton = document.getElementById("resetButton");
+  resetButton.addEventListener("click", function(){
+    alert("gggg")
+    location.reload();
+    return false;
+  });
 })()
-
-
-
-
-
 } // end controller
 
 const view = {
@@ -179,7 +171,6 @@ const view = {
   displayBoard: (function(){
    // let cells = document.querySelectorAll(".cell");;
   for (i=0; i<model.gameArrayFunction.gameArray.length;i++){
-    
     let cell = document.getElementById(i);
   //  console.log("cell: " + cell);
     cell.innerText = model.gameArrayFunction.gameArray[i];
@@ -189,9 +180,8 @@ const view = {
   mouseOverEffect:(function(){
     const focusedSquare = document.querySelectorAll('.cell');
     focusedSquare.forEach((div) =>{
-      div.addEventListener('mouseover',()=> {
-       
-        div.classList.add('mousedOver');
+       div.addEventListener('mouseover',()=> {
+      div.classList.add('mousedOver');
       }); // end event listener 'mouseover'
     }); // end 'for each' 
   })(), // end mouseOverEffect
@@ -201,7 +191,6 @@ const view = {
     unfocusedSquare.forEach((div) =>{
       div.addEventListener('mouseout',()=> {
         div.classList.remove('mousedOver')
-   
       }); // end event listener 'mouseout'
     }); // end 'for each' 
   })(), // end mouseOutEffect
@@ -216,7 +205,7 @@ const view = {
 displayPlayerNames: (function(playerOneName,playerTwoName){
   let playerOneNamePrint = document.getElementById("playerOneNamePlace");
   playerOneNamePrint.innerText = playerOneName.value;
-  playerOneNamePrint.classList.add("pressed");
+ // playerOneNamePrint.classList.add("pressed");
 
 
   let playerTwoNamePrint = document.getElementById("playerTwoNamePlace");
@@ -231,10 +220,13 @@ displayPlayerNames: (function(playerOneName,playerTwoName){
 
 initialView: (function(){
 
+  let PlayerOneNamePlaceInit = document.getElementById("playerOneNamePlace");
+  let PlayerTwoNamePlaceInit = document.getElementById("playerTwoNamePlace");
+
+   PlayerOneNamePlaceInit.classList.add("pressed");
+
   let formWrapper = document.getElementById("formWrapper");
   formWrapper.style.display="none";
-
-  
 
   let playerNameBoard = document.getElementById("playerNameBoard");
   playerNameBoard.style.display = "none";
@@ -246,10 +238,9 @@ initialView: (function(){
   
   let playerTwoNameEntry = document.getElementById("playerTwoNameEntry");
   let playerTwoNameEntryLabel = document.getElementById("playerTwoNameEntryLabel");
-
+  
   return{formWrapper,promptBox, gameSelectBoard, playerTwoNameEntry, playerTwoNameEntryLabel, playerNameBoard}
 })()
-
 } // end view object
 
 

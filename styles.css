@@ -237,15 +237,15 @@ body{
   }
 
   .resetButton {
-    border: black 2px solid;
-    height: 50x;
+    border: red 2px solid;
+    height: 50px;
     background-color: white;
     width: 150px;
-    border-radius: 12%;
+    border-radius: 20%;
     
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    font-size: 25px;
+    font-size: 20px;
     color: #43444D;
     position: absolute;
    
@@ -265,5 +265,5 @@ body{
     position:relative;
  
     height: 50px;
-    width: 550px;
+    width: 400px;
   }
