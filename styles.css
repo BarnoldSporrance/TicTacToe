@@ -240,7 +240,7 @@ body{
     border: red 2px solid;
     height: 50px;
     background-color: white;
-    width: 150px;
+    width: 120px;
     border-radius: 20%;
     
     text-align: center;
@@ -265,5 +265,5 @@ body{
     position:relative;
  
     height: 50px;
-    width: 400px;
+    width: 700px;
   }

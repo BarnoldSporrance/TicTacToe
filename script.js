@@ -111,6 +111,8 @@ const controller = {
     const playerOneSelector =  document.getElementById("onePlayerButton");
     const playerTwoSelector = document.getElementById("twoPlayerButton");
 
+
+
     playerOneSelector.addEventListener('click', ()=> {
       playerOneSelector.classList.add('pressed');
      
@@ -125,6 +127,8 @@ const controller = {
 
       view.initialView.gameSelectBoard.style.display = "none";
       view.initialView.promptBox.innerText = "enter P1 name";  
+
+      view.initialView.resetButtInitial.style.display = "block";
     });
 
     playerTwoSelector.addEventListener('click', ()=> {
@@ -138,6 +142,8 @@ const controller = {
 
       view.initialView.gameSelectBoard.style.display = "none";
       view.initialView.promptBox.innerText = "enter player names";  
+
+      view.initialView.resetButtInitial.style.display = "block";
 
    });
    return{gameMode}
@@ -154,12 +160,12 @@ submitButton.addEventListener("click", function(){
   view.initialView.promptBox.innerText = "FIGHT!";
   view.initialView.playerNameBoard.style.display = "flex";
 })
+return{playerOneName,playerTwoName}
 })(),
 
 resetGame: (function(){
   let resetButton = document.getElementById("resetButton");
   resetButton.addEventListener("click", function(){
-    alert("gggg")
     location.reload();
     return false;
   });
@@ -196,8 +202,18 @@ const view = {
   })(), // end mouseOutEffect
 
   displayWinner: (function(){
-  alert("And the winner is " + model.gameLogic().winner);
+  //alert("And the winner is " + model.gameLogic().winner);
   console.log("And the winner is " + model.gameLogic().winner);
+  
+  if (model.gameLogic().winner === "x"){
+    view.initialView.promptBox.innerText = controller.getPLayerNames.playerOneName.value + " wins!";
+  } else if (model.gameLogic().winner === "o") {
+    view.initialView.promptBox.innerText = controller.getPLayerNames.playerTwoName.value + " wins!";
+  }
+
+
+
+  //view.initialView.promptBox.innerText = "And the winner is " + model.gameLogic().winner;
   view.displayBoard();
 
   }), // end displayWinner
@@ -206,6 +222,8 @@ displayPlayerNames: (function(playerOneName,playerTwoName){
   let playerOneNamePrint = document.getElementById("playerOneNamePlace");
   playerOneNamePrint.innerText = playerOneName.value;
  // playerOneNamePrint.classList.add("pressed");
+
+ 
 
 
   let playerTwoNamePrint = document.getElementById("playerTwoNamePlace");
@@ -221,7 +239,7 @@ displayPlayerNames: (function(playerOneName,playerTwoName){
 initialView: (function(){
 
   let PlayerOneNamePlaceInit = document.getElementById("playerOneNamePlace");
-  let PlayerTwoNamePlaceInit = document.getElementById("playerTwoNamePlace");
+  
 
    PlayerOneNamePlaceInit.classList.add("pressed");
 
@@ -238,8 +256,11 @@ initialView: (function(){
   
   let playerTwoNameEntry = document.getElementById("playerTwoNameEntry");
   let playerTwoNameEntryLabel = document.getElementById("playerTwoNameEntryLabel");
+
+  let resetButtInitial = document.getElementById("resetButton");
+  resetButtInitial.style.display = "none";
   
-  return{formWrapper,promptBox, gameSelectBoard, playerTwoNameEntry, playerTwoNameEntryLabel, playerNameBoard}
+  return{formWrapper,promptBox, gameSelectBoard, playerTwoNameEntry, playerTwoNameEntryLabel, playerNameBoard, resetButtInitial}
 })()
 } // end view object
 
