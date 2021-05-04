@@ -105,8 +105,6 @@ body{
     border-radius: 20px;
     padding-top: 20px;
     position: relative;
-   
- 
     box-shadow:
       0 2.8px 2.2px rgba(0, 0, 0, 0.034),
       0 6.7px 5.3px rgba(0, 0, 0, 0.048),
@@ -159,7 +157,6 @@ body{
   .playerSelectors{
     border: black 2px solid;
     height: 90px;
-   
     width: 150px;
     border-radius: 12%;
     margin: 40px;
@@ -189,7 +186,6 @@ body{
   font-family: 'Roboto', sans-serif;
   font-size: 25px;
   color: #43444D;
-  
 }
 
 .playerNameBoxes{
@@ -225,7 +221,6 @@ body{
   font-size: 40px;
 }
 
-
   #playerBoard, #gameSelectBoard, #playerNameBoard{
       display: flex;
       flex-direction: row;
@@ -242,13 +237,11 @@ body{
     background-color: white;
     width: 120px;
     border-radius: 20%;
-    
     text-align: center;
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
     color: #43444D;
     position: absolute;
-   
     right: 2px;
     box-shadow:
     0 2.8px 2.2px rgba(0, 0, 0, 0.034),
@@ -263,7 +256,17 @@ body{
   #resetWrapper{
     margin-top: 80px;
     position:relative;
- 
     height: 50px;
     width: 700px;
+  }
+
+  .avoid-clicks {
+    pointer-events: none;
+    opacity: 50%;
+  }
+  
+  .resetEmphasis{
+border: green 8px solid !important;
+height: 70px !important;
+width: 140px !important;
   }
